@@ -19,7 +19,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 buildscript {
-    ext.kotlin_version = '1.1.1'
+    ext.kotlin_version = '1.2.50'
     repositories {
         mavenCentral()
     }
@@ -44,7 +44,7 @@ targetCompatibility = 1.8
 
 group = 'club.minnced'
 version = '0.BETA.1'
-def jda_version = '3.1.1_224'
+def jda_version = '3.6.0_376'
 
 sourceSets {
     main.kotlin.srcDirs += 'src/main/kotlin'
