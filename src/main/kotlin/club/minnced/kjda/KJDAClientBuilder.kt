@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 @file:JvmName("KJDAClientBuilder")
+@file:Suppress("UNUSED")
 
 package club.minnced.kjda
 
@@ -51,42 +52,49 @@ fun client(accountType: AccountType, init: JDABuilder.() -> Unit): JDA {
 }
 
 /** Lazy infix overload for [JDABuilder.setToken] */
-infix inline fun <reified T: JDABuilder> T.token(lazyToken: () -> String): T
-    = this.setToken(lazyToken()) as T
-/** Lazy infix overload for [JDABuilder.setGame] */
-infix inline fun <reified T: JDABuilder> T.game(lazy: () -> String): T
-    = this.setGame(Game.of(lazy())) as T
+inline infix fun <reified T : JDABuilder> T.token(lazyToken: () -> String): T = this.setToken(lazyToken()) as T
+
+/** Lazy infix overload for [JDABuilder.setGame(Game.watching)] */
+inline infix fun <reified T : JDABuilder> T.watching(lazy: () -> String) = this.setGame(Game.watching(lazy())) as T
+
+/** Lazy infix overload for [JDABuilder.setGame(Game.listening)] */
+inline infix fun <reified T : JDABuilder> T.listening(lazy: () -> String) = this.setGame(Game.listening(lazy())) as T
+
+/** Lazy infix overload for [JDABuilder.setGame(Game.playing)] */
+inline infix fun <reified T : JDABuilder> T.playing(lazy: () -> String) = this.setGame(Game.playing(lazy())) as T
+
+/** Lazy infix overload for [JDABuilder.setGame(Game.streaming)] */
+inline fun <reified T : JDABuilder> T.streaming(name: String, url: String) = this.setGame(Game.streaming(name, url)) as T
+
 /** Lazy infix overload for [JDABuilder.setStatus] */
-infix inline fun <reified T: JDABuilder> T.status(lazy: () -> OnlineStatus): T
-    = this.setStatus(lazy()) as T
+inline infix fun <reified T : JDABuilder> T.status(lazy: () -> OnlineStatus): T = this.setStatus(lazy()) as T
+
 /** Lazy infix overload for [JDABuilder.setEventManager] */
-infix inline fun <reified T: JDABuilder> T.manager(lazy: () -> IEventManager): T
-    = this.setEventManager(lazy()) as T
+inline infix fun <reified T : JDABuilder> T.manager(lazy: () -> IEventManager): T = this.setEventManager(lazy()) as T
+
 /** Lazy infix overload for [JDABuilder.addEventListener] */
-infix inline fun <reified T: JDABuilder> T.listener(lazy: () -> Any): T
-    = this.addEventListener(lazy()) as T
+inline infix fun <reified T : JDABuilder> T.listener(lazy: () -> Any): T = this.addEventListener(lazy()) as T
+
 /** Lazy infix overload for [JDABuilder.setAudioSendFactory] */
-infix inline fun <reified T: JDABuilder> T.audioSendFactory(lazy: () -> IAudioSendFactory): T
-    = this.setAudioSendFactory(lazy()) as T
+inline infix fun <reified T : JDABuilder> T.audioSendFactory(lazy: () -> IAudioSendFactory): T = this.setAudioSendFactory(lazy()) as T
 
 /** Infix overload for [JDABuilder.setIdle] */
-infix inline fun <reified T: JDABuilder> T.idle(lazy: Boolean): T
-    = this.setIdle(lazy) as T
+inline infix fun <reified T : JDABuilder> T.idle(lazy: Boolean): T = this.setIdle(lazy) as T
+
 /** Infix overload for [JDABuilder.setEnableShutdownHook] */
-infix inline fun <reified T: JDABuilder> T.shutdownHook(lazy: Boolean): T
-    = this.setEnableShutdownHook(lazy) as T
+inline infix fun <reified T : JDABuilder> T.shutdownHook(lazy: Boolean): T = this.setEnableShutdownHook(lazy) as T
+
 /** Infix overload for [JDABuilder.setAudioEnabled] */
-infix inline fun <reified T: JDABuilder> T.audio(lazy: Boolean): T
-    = this.setAudioEnabled(lazy) as T
+inline infix fun <reified T : JDABuilder> T.audio(lazy: Boolean): T = this.setAudioEnabled(lazy) as T
+
 /** Infix overload for [JDABuilder.setAutoReconnect] */
-infix inline fun <reified T: JDABuilder> T.autoReconnect(lazy: Boolean): T
-    = this.setAutoReconnect(lazy) as T
+inline infix fun <reified T : JDABuilder> T.autoReconnect(lazy: Boolean): T = this.setAutoReconnect(lazy) as T
 
 /**
  * Provides new WebSocketFactory and calls the provided lazy
  * initializer to allow setting options like timeouts
  */
-infix inline fun <reified T: JDABuilder> T.websocketSettings(init: WebSocketFactory.() -> Unit): T {
+inline infix fun <reified T : JDABuilder> T.websocketSettings(init: WebSocketFactory.() -> Unit): T {
     val factory = WebSocketFactory()
     factory.init()
     setWebsocketFactory(factory)
@@ -97,7 +105,7 @@ infix inline fun <reified T: JDABuilder> T.websocketSettings(init: WebSocketFact
  * Provides new OkHttpClient.Builder and calls the provided lazy
  * initializer to allow setting options like timeouts
  */
-infix inline fun <reified T: JDABuilder> T.httpSettings(init: OkHttpClient.Builder.() -> Unit): T {
+inline infix fun <reified T : JDABuilder> T.httpSettings(init: OkHttpClient.Builder.() -> Unit): T {
     val builder = OkHttpClient.Builder()
     builder.init()
     setHttpClientBuilder(builder)
@@ -105,11 +113,17 @@ infix inline fun <reified T: JDABuilder> T.httpSettings(init: OkHttpClient.Build
 }
 
 /** Overload for [JDABuilder.addEventListener] */
-inline fun <reified T: JDABuilder> T.listener(vararg listener: Any): T
-    = this.addEventListener(*listener) as T
+inline fun <reified T : JDABuilder> T.listener(vararg listener: Any): T = this.addEventListener(*listener) as T
+
 /** Overload for [JDABuilder.removeEventListener] */
-inline fun <reified T: JDABuilder> T.removeListener(vararg listener: Any): T
-    = this.removeEventListener(*listener) as T
+inline fun <reified T : JDABuilder> T.removeListener(vararg listener: Any): T = this.removeEventListener(*listener) as T
 
 /** Operator overload for [JDABuilder.addEventListener] */
-inline operator fun <reified T: JDABuilder> T.plusAssign(other: Any) { listener(other) }
+inline operator fun <reified T : JDABuilder> T.plusAssign(other: Any) {
+    listener(other)
+}
+
+/** Operator overload for [JDABuilder.removeEventListener] */
+inline operator fun <reified T : JDABuilder> T.minusAssign(other: Any) {
+    removeListener(other)
+}

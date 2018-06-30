@@ -36,8 +36,7 @@ fun MessageHistory.paginated() = produce<Message>(CommonPool) {
         while (messages.isNotEmpty())
             send(messages.poll())
         messages += retrievePast(100).after(1, SECONDS) ?: break
-    }
-    while (messages.isNotEmpty())
+    } while (messages.isNotEmpty())
 }
 
 fun MessageChannel.messages(context: CoroutineDispatcher = CommonPool) = produce<Message>(context) {

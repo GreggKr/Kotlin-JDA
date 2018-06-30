@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 @file:JvmName("KJDABuilders")
+
 package club.minnced.kjda
 
 import club.minnced.kjda.builders.KEmbedBuilder
@@ -66,5 +67,4 @@ operator fun Appendable.plusAssign(other: IMentionable) {
  *
  * @return[MessageBuilder] - current MessageBuilder
  */
-infix inline fun MessageBuilder.embed(crossinline init: KEmbedBuilder.() -> Unit): MessageBuilder
-    = setEmbed(club.minnced.kjda.builders.embed { init() })
+inline infix fun MessageBuilder.embed(crossinline init: KEmbedBuilder.() -> Unit): MessageBuilder = setEmbed(club.minnced.kjda.builders.embed { init() })

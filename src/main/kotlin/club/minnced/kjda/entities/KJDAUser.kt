@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 @file:JvmName("KJDAUser")
+
 package club.minnced.kjda.entities
 
 import net.dv8tion.jda.core.OnlineStatus

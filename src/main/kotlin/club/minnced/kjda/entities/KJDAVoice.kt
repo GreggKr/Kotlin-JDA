@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 @file:JvmName("KJDAVoice")
+
 package club.minnced.kjda.entities
 
 import net.dv8tion.jda.core.entities.Guild
@@ -23,4 +24,5 @@ import net.dv8tion.jda.core.entities.VoiceChannel
 fun VoiceChannel.join() = guild.audioManager.openAudioConnection(this)
 
 /** Leaves current VoiceChannel if connected. */
-fun Guild.disconnect() = if (audioManager.isConnected) audioManager.closeAudioConnection() else { }
+fun Guild.disconnect() = if (audioManager.isConnected) audioManager.closeAudioConnection() else {
+}

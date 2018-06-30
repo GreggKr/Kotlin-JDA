@@ -26,9 +26,9 @@ import java.util.concurrent.Executors
 typealias static = JvmStatic
 
 class AsyncEventManager(private val executor: ExecutorService = AsyncEventManager.POOL) : IEventManager {
-
     companion object {
-        @static val POOL: ExecutorService by lazy {
+        @static
+        val POOL: ExecutorService by lazy {
             Executors.newCachedThreadPool {
                 val t = Thread(it, "EventThread")
                 t.isDaemon = true
@@ -39,13 +39,14 @@ class AsyncEventManager(private val executor: ExecutorService = AsyncEventManage
 
     private val listeners = CopyOnWriteArraySet<EventListener>()
 
-    override fun handle(event: Event?) = executor.execute { listeners.forEach {
-        try {
-            it.onEvent(event)
+    override fun handle(event: Event?) = executor.execute {
+        listeners.forEach {
+            try {
+                it.onEvent(event)
+            } catch (ex: Throwable) {
+                ex.printStackTrace()
+            }
         }
-        catch (ex: Throwable) {
-            ex.printStackTrace()
-        }}
     }
 
     override fun register(listener: Any?) {
@@ -55,7 +56,7 @@ class AsyncEventManager(private val executor: ExecutorService = AsyncEventManage
         listeners += listener as EventListener
     }
 
-    override fun getRegisteredListeners(): MutableList<Any> = mutableListOf(listeners)
+    override fun getRegisteredListeners() = mutableListOf(listeners)
 
     override fun unregister(listener: Any?) {
         if (listener is EventListener)

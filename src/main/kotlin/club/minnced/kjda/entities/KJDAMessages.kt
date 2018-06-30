@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 @file:JvmName("KJDAMessages")
+
 package club.minnced.kjda.entities
 
 import club.minnced.kjda.*
@@ -275,7 +276,7 @@ data class KMessage(
  */
 operator fun Message.div(upTo: Int): List<String> {
     if (upTo < 1)
-        return rawContent / upTo
+        return contentRaw / upTo
 
-    return rawContent / upTo
+    return contentRaw / upTo
 }

@@ -23,7 +23,7 @@ import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.requests.RestAction
 
 
-fun Guild.ban(id: Long, days: Int = 0)   = controller.ban(id.toString(), days)
+fun Guild.ban(id: Long, days: Int = 0) = controller.ban(id.toString(), days)
 fun Guild.ban(id: String, days: Int = 0) = controller.ban(id, days)
 infix fun Guild.kick(member: Member) = controller.kick(member)
 

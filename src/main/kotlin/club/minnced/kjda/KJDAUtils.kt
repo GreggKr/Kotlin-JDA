@@ -32,5 +32,5 @@ operator fun CharSequence.div(amount: Int): List<String> {
     return this.split(SPACES, amount)
 }
 
-operator fun String.rem(col: Collection<Any?>) = rem(col.toTypedArray<Any?>())
+operator fun String.rem(col: Collection<Any?>) = rem(col.toTypedArray())
 operator fun String.rem(arr: Array<Any?>) = String.format(this, *arr)

@@ -25,17 +25,17 @@ import net.dv8tion.jda.core.events.Event
 typealias Status = OnlineStatus
 
 /** Sets the game for the current session using [Presence.setGame][net.dv8tion.jda.core.managers.Presence.setGame] */
-infix inline fun JDA.game(lazy: () -> Game): JDA {
+inline infix fun JDA.game(lazy: () -> Game): JDA {
     presence.game = lazy()
     return this
 }
 /** Sets the online status for the current session using [Presence.setStatus][net.dv8tion.jda.core.managers.Presence.setStatus] */
-infix inline fun JDA.status(lazy: () -> Status): JDA {
+inline infix fun JDA.status(lazy: () -> Status): JDA {
     presence.status = lazy()
     return this
 }
 /** Sets the online status for the current session using [Presence.setIdle][net.dv8tion.jda.core.managers.Presence.setIdle] */
-infix inline fun JDA.idle(lazy: () -> Boolean): JDA {
+inline infix fun JDA.idle(lazy: () -> Boolean): JDA {
     presence.isIdle = lazy()
     return this
 }
