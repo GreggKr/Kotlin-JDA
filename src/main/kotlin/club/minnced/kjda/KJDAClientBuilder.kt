@@ -55,16 +55,16 @@ fun client(accountType: AccountType, init: JDABuilder.() -> Unit): JDA {
 inline infix fun <reified T : JDABuilder> T.token(lazyToken: () -> String): T = this.setToken(lazyToken()) as T
 
 /** Lazy infix overload for [JDABuilder.setGame(Game.watching)] */
-inline infix fun <reified T : JDABuilder> T.watching(lazy: () -> String) = this.setGame(Game.watching(lazy())) as T
+inline infix fun <reified T : JDABuilder> T.watching(lazy: () -> String): T = this.setGame(Game.watching(lazy())) as T
 
 /** Lazy infix overload for [JDABuilder.setGame(Game.listening)] */
-inline infix fun <reified T : JDABuilder> T.listening(lazy: () -> String) = this.setGame(Game.listening(lazy())) as T
+inline infix fun <reified T : JDABuilder> T.listening(lazy: () -> String): T = this.setGame(Game.listening(lazy())) as T
 
 /** Lazy infix overload for [JDABuilder.setGame(Game.playing)] */
-inline infix fun <reified T : JDABuilder> T.playing(lazy: () -> String) = this.setGame(Game.playing(lazy())) as T
+inline infix fun <reified T : JDABuilder> T.playing(lazy: () -> String): T = this.setGame(Game.playing(lazy())) as T
 
-/** Lazy infix overload for [JDABuilder.setGame(Game.streaming)] */
-inline fun <reified T : JDABuilder> T.streaming(name: String, url: String) = this.setGame(Game.streaming(name, url)) as T
+/** Overload for [JDABuilder.setGame(Game.streaming)] */
+inline fun <reified T : JDABuilder> T.streaming(name: String, url: String): T = this.setGame(Game.streaming(name, url)) as T
 
 /** Lazy infix overload for [JDABuilder.setStatus] */
 inline infix fun <reified T : JDABuilder> T.status(lazy: () -> OnlineStatus): T = this.setStatus(lazy()) as T
